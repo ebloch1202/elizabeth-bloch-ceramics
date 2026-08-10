@@ -1,0 +1,612 @@
+/* =========================================================
+   CERAMIC STUDIO — STYLESHEET
+   ---------------------------------------------------------
+   This file is organized in sections:
+   1. Variables (colors, fonts, spacing) — edit these first
+   2. Reset / base styles
+   3. Layout building blocks (nav, footer, containers)
+   4. Components (hero, gallery grid, labels, forms)
+   5. Responsive rules (small screens)
+   ========================================================= */
+
+/* -------------------- 1. VARIABLES -------------------- */
+:root {
+  /* Color palette — named after clay & glaze, not just hex codes,
+     so it's easy to remember what each one is for. */
+  --bone: #f2ede3;         /* main background, like unglazed bisque */
+  --paper: #faf7f1;        /* slightly lighter panel background */
+  --charcoal: #2b2723;     /* primary text, like fired stoneware */
+  --ash: #8c8378;          /* secondary/muted text */
+  --glaze: #5f7161;        /* accent color — a quiet sage-celadon green */
+  --glaze-dark: #46564a;   /* accent hover/darker state */
+  --line: rgba(43, 39, 35, 0.12); /* hairline borders */
+
+  /* Type scale */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Work Sans", -apple-system, Helvetica, Arial, sans-serif;
+
+  --tracking-wide: 0.14em;
+
+  /* Spacing */
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --max-width: 1280px;
+}
+
+/* -------------------- 2. RESET / BASE -------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bone);
+  color: var(--charcoal);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+/* Visible keyboard focus (accessibility) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--glaze-dark);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* -------------------- 3. NAVIGATION -------------------- */
+.site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  padding: 1.75rem var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-header.is-solid {
+  position: sticky;
+  background: var(--bone);
+  border-bottom: 1px solid var(--line);
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: 0.04em;
+}
+
+.nav-links {
+  display: flex;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  list-style: none;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+.nav-links a {
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.nav-links a:hover,
+.nav-links a[aria-current="page"] {
+  border-color: currentColor;
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  cursor: pointer;
+}
+
+/* -------------------- 4. HERO -------------------- */
+.hero {
+  position: relative;
+  height: 72vh;
+  min-height: 403px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.35), transparent 55%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: var(--gutter);
+  padding-bottom: clamp(2rem, 6vw, 4rem);
+  color: var(--paper);
+}
+
+.hero-eyebrow {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  opacity: 0.85;
+  margin-bottom: 1rem;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  max-width: 16ch;
+}
+
+.hero-sub {
+  margin-top: 1.25rem;
+  max-width: 40ch;
+  font-size: 1.05rem;
+  opacity: 0.9;
+}
+
+/* -------------------- 5. SECTIONS -------------------- */
+section {
+  padding: clamp(4rem, 10vw, 7rem) 0;
+}
+
+.section-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.section-heading h2 {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.section-heading .view-all {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  white-space: nowrap;
+  border-bottom: 1px solid var(--charcoal);
+}
+
+.intro-text {
+  max-width: 60ch;
+  color: var(--ash);
+  font-size: 1.05rem;
+}
+
+/* -------------------- 6. GALLERY GRID -------------------- */
+/* An asymmetric grid instead of a uniform 3-column grid — a couple
+   of pieces are given more room, the way a curator would hang a wall. */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: clamp(1rem, 2vw, 1.75rem);
+}
+
+.piece {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* All three variants render at the same size — the photos are square
+   product shots, so a uniform grid keeps every image fully visible
+   instead of being cropped to fit a wide/tall frame. */
+.piece--wide,
+.piece--tall,
+.piece--small { grid-column: span 2; }
+
+.piece .photo {
+  aspect-ratio: 1 / 1;
+  transition: transform 0.6s ease;
+}
+
+.piece:hover .photo {
+  transform: scale(1.03);
+}
+
+/* Museum-label caption, revealed on hover/focus */
+.piece-label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1rem 1.1rem;
+  background: linear-gradient(to top, rgba(43,39,35,0.82), transparent);
+  color: var(--paper);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.piece:hover .piece-label,
+.piece:focus-within .piece-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.piece-label .title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+}
+
+.piece-label .meta {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.8;
+  margin-top: 0.2rem;
+}
+
+/* -------------------- 6b. INLINE DETAIL PANEL -------------------- */
+/* Inserted into the gallery grid when a piece is clicked. Spans the
+   full grid width; image on the left, text slides in from the right
+   — the Daniel Bloch Ceramics pattern. */
+
+.piece.is-active {
+  outline: 2px solid var(--charcoal);
+  outline-offset: -2px;
+}
+
+.detail-panel {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  min-height: 420px;
+  overflow: hidden;
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.45s ease, opacity 0.35s ease;
+}
+
+.detail-panel.is-open {
+  max-height: 900px;
+  opacity: 1;
+}
+
+.detail-image {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bone);
+}
+
+.detail-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.detail-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  background: linear-gradient(160deg, #d8d0c2 0%, #c7bda9 45%, #aba28e 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-placeholder span {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--charcoal);
+  opacity: 0.45;
+}
+
+.detail-info {
+  padding: clamp(2rem, 4vw, 3.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+
+  transform: translateX(40px);
+  opacity: 0;
+  transition: transform 0.5s ease 0.15s, opacity 0.45s ease 0.15s;
+}
+
+.detail-panel.is-open .detail-info {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.detail-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--charcoal);
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-close:hover {
+  color: var(--glaze-dark);
+}
+
+.detail-title {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  margin-bottom: 1.25rem;
+}
+
+.detail-meta {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ash);
+  line-height: 1.8;
+}
+
+.detail-desc {
+  margin-top: 1.25rem;
+  color: var(--ash);
+  line-height: 1.7;
+  max-width: 42ch;
+}
+
+.detail-inquire {
+  margin-top: 2rem;
+}
+
+.detail-inquire a {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid var(--charcoal);
+  padding-bottom: 3px;
+  transition: border-color 0.2s ease;
+}
+
+.detail-inquire a:hover {
+  border-color: var(--glaze);
+  color: var(--glaze-dark);
+}
+
+@media (max-width: 860px) {
+  .detail-panel {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .detail-image {
+    max-height: 50vh;
+  }
+
+  .detail-placeholder {
+    min-height: 220px;
+  }
+}
+
+/* -------------------- 7. ABOUT / SPLIT LAYOUT -------------------- */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+}
+
+.split .photo {
+  aspect-ratio: 4 / 5;
+}
+
+.split-copy h1,
+.split-copy h2 {
+  margin-bottom: 1.25rem;
+}
+
+.split-copy p + p {
+  margin-top: 1rem;
+}
+
+.split-copy p {
+  color: var(--ash);
+  max-width: 52ch;
+}
+
+/* -------------------- 8. CONTACT FORM -------------------- */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 6vw, 5rem);
+}
+
+.form-field {
+  margin-bottom: 1.25rem;
+}
+
+label {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--ash);
+  margin-bottom: 0.5rem;
+}
+
+input, textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 0.6rem 0;
+  color: var(--charcoal);
+}
+
+input:focus, textarea:focus {
+  border-color: var(--charcoal);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  background: var(--charcoal);
+  color: var(--paper);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn:hover {
+  background: var(--glaze-dark);
+}
+
+.contact-details p {
+  margin-bottom: 0.75rem;
+  color: var(--ash);
+}
+
+.contact-details a:hover {
+  color: var(--glaze-dark);
+}
+
+/* -------------------- 9. FOOTER -------------------- */
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 2.5rem var(--gutter);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--ash);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.footer-social {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+/* -------------------- 10. SCROLL REVEAL -------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* -------------------- 11. RESPONSIVE -------------------- */
+@media (max-width: 860px) {
+  .nav-links {
+    position: fixed;
+    inset: 0;
+    background: var(--bone);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    font-size: 1rem;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .nav-links.is-open {
+    transform: translateY(0);
+  }
+
+  .nav-toggle {
+    display: block;
+    position: relative;
+    z-index: 20;
+  }
+
+  .split,
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .piece--wide,
+  .piece--tall,
+  .piece--small {
+    grid-column: span 6;
+  }
+}
