@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx --yes playwright --version)",
+      "Bash(python3 -c \"import playwright; print\\('has playwright'\\)\")",
+      "Bash(node -e \"require\\('playwright'\\); console.log\\('ok'\\)\")"
+    ]
+  }
+}

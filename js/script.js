@@ -15,13 +15,14 @@ document.addEventListener("DOMContentLoaded", () => {
     toggle.addEventListener("click", () => {
       const isOpen = links.classList.toggle("is-open");
       toggle.setAttribute("aria-expanded", isOpen);
-      toggle.textContent = isOpen ? "Close" : "Menu";
+      toggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
     });
 
     links.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => {
         links.classList.remove("is-open");
-        toggle.textContent = "Menu";
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-label", "Open menu");
       });
     });
   }
