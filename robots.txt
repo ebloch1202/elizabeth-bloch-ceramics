@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://elizabethblochceramics.com/sitemap.xml
+Sitemap: https://www.elizabethblochceramics.com/sitemap.xml
