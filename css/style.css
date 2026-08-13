@@ -310,155 +310,143 @@ section {
   margin-top: 0.2rem;
 }
 
-/* -------------------- 6b. INLINE DETAIL PANEL -------------------- */
-/* Inserted into the gallery grid when a piece is clicked. Spans the
-   full grid width; image on the left, text slides in from the right
-   — the Daniel Bloch Ceramics pattern. */
+/* -------------------- 6b. IMAGE LIGHTBOX -------------------- */
+/* A full-screen modal overlay for viewing a piece's photo at large
+   size. Triggered by clicking any .piece thumbnail. */
 
 .piece.is-active {
   outline: 2px solid var(--charcoal);
   outline-offset: -2px;
 }
 
-.detail-panel {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  min-height: 420px;
+body.lightbox-open {
   overflow: hidden;
-  background: var(--paper);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+}
 
-  max-height: 0;
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.5rem, 6vw, 4.5rem);
   opacity: 0;
-  transition: max-height 0.45s ease, opacity 0.35s ease;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
 }
 
-.detail-panel.is-open {
-  max-height: 900px;
+.lightbox.is-open {
   opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease;
 }
 
-.detail-image {
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--bone);
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(43, 39, 35, 0.94);
+  cursor: zoom-out;
 }
 
-.detail-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.detail-placeholder {
-  width: 100%;
-  height: 100%;
-  min-height: 360px;
-  background: linear-gradient(160deg, #d8d0c2 0%, #c7bda9 45%, #aba28e 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.detail-placeholder span {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  color: var(--charcoal);
-  opacity: 0.45;
-}
-
-.detail-info {
-  padding: clamp(2rem, 4vw, 3.5rem);
+.lightbox-content {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  max-width: min(1100px, 100%);
+  max-height: 100%;
+  transform: scale(0.96);
+  transition: transform 0.35s ease;
+}
+
+.lightbox.is-open .lightbox-content {
+  transform: scale(1);
+}
+
+.lightbox-image-wrap {
   position: relative;
-
-  transform: translateX(40px);
-  opacity: 0;
-  transition: transform 0.5s ease 0.15s, opacity 0.45s ease 0.15s;
-}
-
-.detail-panel.is-open .detail-info {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.detail-close {
-  position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
-  background: none;
-  border: none;
-  font-size: 1.75rem;
-  line-height: 1;
-  cursor: pointer;
-  color: var(--charcoal);
-  width: 2rem;
-  height: 2rem;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  max-width: 100%;
+  max-height: 76vh;
 }
 
-.detail-close:hover {
-  color: var(--glaze-dark);
+.lightbox-image {
+  display: block;
+  max-width: 100%;
+  max-height: 76vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.45);
+  cursor: zoom-in;
+  transform: scale(1);
+  transition: transform 0.3s ease;
 }
 
-.detail-title {
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
-  margin-bottom: 1.25rem;
+.lightbox-image.is-zoomed {
+  cursor: zoom-out;
+  transition: transform 0.15s ease-out;
 }
 
-.detail-meta {
-  font-size: 0.8rem;
+.lightbox-caption {
+  margin-top: 1.5rem;
+  text-align: center;
+  color: var(--paper);
+  transition: opacity 0.2s ease;
+}
+
+.lightbox.is-zoomed .lightbox-caption {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.lightbox-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+}
+
+.lightbox-meta {
+  margin-top: 0.4rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--ash);
-  line-height: 1.8;
+  letter-spacing: var(--tracking-wide);
+  color: var(--paper);
+  opacity: 0.7;
 }
 
-.detail-desc {
-  margin-top: 1.25rem;
-  color: var(--ash);
-  line-height: 1.7;
-  max-width: 42ch;
+.lightbox-close {
+  position: absolute;
+  top: clamp(0.75rem, 3vw, 1.75rem);
+  right: clamp(0.75rem, 3vw, 1.75rem);
+  z-index: 2;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(250, 247, 241, 0.3);
+  border-radius: 50%;
+  color: var(--paper);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
 
-.detail-inquire {
-  margin-top: 2rem;
+.lightbox-close:hover {
+  background: rgba(250, 247, 241, 0.12);
+  border-color: rgba(250, 247, 241, 0.6);
 }
 
-.detail-inquire a {
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  border-bottom: 1px solid var(--charcoal);
-  padding-bottom: 3px;
-  transition: border-color 0.2s ease;
-}
-
-.detail-inquire a:hover {
-  border-color: var(--glaze);
-  color: var(--glaze-dark);
-}
-
-@media (max-width: 860px) {
-  .detail-panel {
-    grid-template-columns: 1fr;
-    min-height: auto;
-  }
-
-  .detail-image {
-    max-height: 50vh;
-  }
-
-  .detail-placeholder {
-    min-height: 220px;
+@media (max-width: 640px) {
+  .lightbox-image {
+    max-height: 60vh;
   }
 }
 
