@@ -95,7 +95,7 @@
            data-medium="Stoneware · 2025">
           <img class="photo" src="images/speckled-white-bowl.jpg" alt="White bowl with a speckled swirl pattern" />
           <div class="piece-label">
-            <p class="title">Speckled White Bowl Bowl</p>
+            <p class="title">Speckled White Bowl</p>
             <p class="meta">Stoneware · 2025</p>
           </div>
         </a>
@@ -145,11 +145,52 @@
            data-medium="Stoneware · 2026">
           <img class="photo" src="images/amber-drip-bowl.jpg" alt="Amber bowl with a white drip glaze" />
           <div class="piece-label">
-            <p class="title">Amber Drip Bowl</p>
+            <p class="title">Ash Green Lined Bowl</p>
             <p class="meta">Stoneware · 2026</p>
           </div>
         </a>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TRY THE WHEEL (interactive pottery game) ============ -->
+  <section class="wheel-section">
+    <div class="container reveal">
+      <div class="section-heading">
+        <h2>Try the wheel</h2>
+        <p class="wheel-hint">Click and drag on the clay — pull up for height, push out for a bowl, pull in for a neck.</p>
+      </div>
+
+      <div class="wheel-game">
+        <div class="wheel-stage">
+          <canvas class="wheel-canvas" width="600" height="900"
+                  aria-label="Interactive pottery wheel: click and drag to shape a lump of clay into a bowl or vase"></canvas>
+
+          <div class="wheel-overlay wheel-overlay--start">
+            <button type="button" class="btn wheel-start">Start Throwing</button>
+          </div>
+
+          <div class="wheel-overlay wheel-overlay--collapsed" hidden>
+            <p class="wheel-message">The wall wobbled out of control and it collapsed.</p>
+            <button type="button" class="btn wheel-retry">Try Again</button>
+          </div>
+
+          <div class="wheel-overlay wheel-overlay--finished" hidden>
+            <p class="wheel-message">Nice <span class="wheel-form-name">vessel</span> — pick a glaze:</p>
+            <div class="wheel-glazes"></div>
+            <div class="wheel-finished-actions">
+              <button type="button" class="btn wheel-retry">Throw Another</button>
+              <a class="btn btn--ghost" href="contact.html">Commission a Real One</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="wheel-controls">
+          <div class="wheel-wobble-meter"><div class="wheel-wobble-fill"></div></div>
+          <button type="button" class="wheel-finish" hidden>Glaze</button>
+          <button type="button" class="wheel-reset" hidden>Reset</button>
+        </div>
       </div>
     </div>
   </section>
@@ -163,5 +204,6 @@
   </footer>
 
   <script src="js/script.js?v=5"></script>
+  <script src="js/wheel-game.js?v=1"></script>
 </body>
 </html>
